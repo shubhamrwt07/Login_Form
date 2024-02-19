@@ -1,13 +1,13 @@
 const User = require("../models/user.model");
 const nodemailer = require('nodemailer');
+// const bcrypt = require('bcrypt');
 const bcrypt = require('bcrypt');
-
 const crypto = require('crypto');
 
 
 // signUp
-const bcrypt = require('bcrypt');
-const saltRounds = 10; // Number of salt rounds for bcrypt
+
+const saltRounds = 10; 
 
 const signUp = async (req, res) => {
   try {
@@ -98,7 +98,7 @@ const forgotPassword = async (req, res) => {
         console.log(error);
         return res.status(500).json({ message: 'Error sending reset email', status: 500 });
       } else {
-        console.log('Email sent: ' + info.response);
+        console.log('Email sent:' + info.response);
         return res.status(200).json({ message: 'Reset password email sent', status: 200 });
       }
     });
