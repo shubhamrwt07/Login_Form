@@ -1,11 +1,13 @@
 const mongoose = require('mongoose')
-// require('dotenv').config();
+require('dotenv').config();
 const connectionParams = {
     useNewUrlParser: true,
     useUnifiedTopology: true
 }
-MONGO_URI='mongodb+srv://rwts6135:tTlahQ4a3y2uNJIh@cluster0.o566pkh.mongodb.net/?retryWrites=true&w=majority'
+
+ MONGO_URI='mongodb+srv://rwts6135:tTlahQ4a3y2uNJIh@cluster0.o566pkh.mongodb.net/?retryWrites=true&w=majority'
 // process.env.MONGO_URI
+
 mongoose.set('strictQuery', false);
 mongoose.connect(MONGO_URI, connectionParams)
 
