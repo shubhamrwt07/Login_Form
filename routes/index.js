@@ -7,7 +7,7 @@ module.exports = function (app) {
         next();
     });
 
-    require("./user.routes")(app)
+    require("./user.routes")(app);
     // require("./warehouse.route")(app)
     // require("./commodity.routes")(app)
     // require("./unit.routes")(app)

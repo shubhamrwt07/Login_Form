@@ -14,5 +14,5 @@ mongoose.connect(MONGO_URI, connectionParams)
         // initial();
     })
     .catch((err) => {
-        console.error(`Error connecting to the database. n${err}`);
+        console.error(`Error connecting to the database.n${err}`);
     })
