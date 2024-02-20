@@ -7,7 +7,7 @@ const crypto = require('crypto');
 
 // signUp
 
-const saltRounds = 10; 
+// const saltRounds = 10; 
 
 const signUp = async (req, res) => {
   try {
@@ -23,7 +23,7 @@ const signUp = async (req, res) => {
       if (userExist) {
         return res
           .status(400)
-          .json({ message: "Email already exists", status: 400 });
+          .json({ message: "Name already exists", status: 400 });
       } else {
         // Hash the password before saving
         const hashedPassword = await bcrypt.hash(password, saltRounds);
@@ -39,7 +39,9 @@ const signUp = async (req, res) => {
 };
 
 
-// login
+
+
+// loginform
 const login = async (req, res) => {
   try {
     const { name, password } = req.body;
@@ -56,60 +58,62 @@ const login = async (req, res) => {
       return res.status(401).json({ message: "Invalid credentials", status: 401 });
     }
 
-    return res.status(200).json({ message: "Login successful", user, status: 200 });
+    return res.status(200).json({ message: "Login successfull", user, status: 200 });
   } catch (error) {
     return res.status(500).json({ message: error.message, status: 500 });
   }
 };
+
+
 
 // forgotPassword
-const forgotPassword = async (req, res) => {
-  try {
-    const { name } = req.body;
-    const user = await User.findOne({ name });
-    if (!user) {
-      return res.status(404).json({ message: 'User not found', status: 404 });
-    }
+// const forgotPassword = async (req, res) => {
+//   try {
+//     const { name } = req.body;
+//     const user = await User.findOne({ name });
+//     if (!user) {
+//       return res.status(404).json({ message: 'User not found', status: 404 });
+//     }
 
-    const token = crypto.randomBytes(20).toString('hex');
-    user.resetToken = token;
-    await user.save();
+//     const token = crypto.randomBytes(20).toString('hex');
+//     user.resetToken = token;
+//     await user.save();
 
-    const transporter = nodemailer.createTransport({
-      service: 'Gmail',
-      auth: {
-          user: 'your-email@gmail.com',
-          pass: 'your-password'
-      }
-    });
+//     const transporter = nodemailer.createTransport({
+//       service: 'Gmail',
+//       auth: {
+//           user: 'your-email@gmail.com',
+//           pass: 'your-password'
+//       }
+//     });
 
-    const mailOptions = {
-      from: 'your-email@gmail.com',
-      to: user.email,
-      subject: 'Password Reset Request',
-      text: `You are receiving this because you (or someone else) have requested the reset of the password for your account.\n\n`
-        + `Please click on the following link, or paste this into your browser to complete the process:\n\n`
-        + `http://localhost:3000/reset-password/${token}\n\n`
-        + `If you did not request this, please ignore this email and your password will remain unchanged.\n`
-    };
+//     const mailOptions = {
+//       from: 'your-email@gmail.com',
+//       to: user.email,
+//       subject: 'Password Reset Request',
+//       text: `You are receiving this because you (or someone else) have requested the reset of the password for your account.\n\n`
+//         + `Please click on the following link, or paste this into your browser to complete the process:\n\n`
+//         + `http://localhost:3000/reset-password/${token}\n\n`
+//         + `If you did not request this, please ignore this email and your password will remain unchanged.\n`
+//     };
 
-    transporter.sendMail(mailOptions, (error, info) => {
-      if (error) {
-        console.log(error);
-        return res.status(500).json({ message: 'Error sending reset email', status: 500 });
-      } else {
-        console.log('Email sent:' + info.response);
-        return res.status(200).json({ message: 'Reset password email sent', status: 200 });
-      }
-    });
-  } catch (error) {
-    return res.status(500).json({ message: error.message, status: 500 });
-  }
-};
+//     transporter.sendMail(mailOptions, (error, info) => {
+//       if (error) {
+//         console.log(error);
+//         return res.status(500).json({ message: 'Error sending reset email', status: 500 });
+//       } else {
+//         console.log('Email sent:' + info.response);
+//         return res.status(200).json({ message: 'Reset password email sent', status: 200 });
+//       }
+//     });
+//   } catch (error) {
+//     return res.status(500).json({ message: error.message, status: 500 });
+//   }
+// };
 
 
 module.exports = {
   signUp,
-  forgotPassword,
+  // forgotPassword,
   login
 };
